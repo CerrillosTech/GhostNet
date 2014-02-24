@@ -1,17 +1,9 @@
 package com.ghost.net;
 
-import java.io.IOException;
-
 import com.cerrillostech.quantanet.QuantaNetListener;
 import com.cerrillostech.quantanet.QuantaPacket;
 
 public class SSLServerHandler implements QuantaNetListener {
-
-	@Override
-	public void handleBukkitPacket(QuantaPacket packet) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void handleClosePacket(QuantaPacket packet) {
@@ -33,13 +25,15 @@ public class SSLServerHandler implements QuantaNetListener {
 
 	@Override
 	public void handleMessagePacket(QuantaPacket packet) {
+		System.out.println(packet.getData());
+		/*
 		try {
 			GhostPacketHandler.handle(GhostPacket.unserialize(packet.getData()));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override

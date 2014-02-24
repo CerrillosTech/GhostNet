@@ -8,13 +8,13 @@ public class SSLClientHandler implements QuantaNetListener {
 	@Override
 	public void handlePacket(QuantaPacket packet) {
 		// TODO Auto-generated method stub
-		
+		System.out.println(packet.getData());
 	}
 
 	@Override
 	public void handleMessagePacket(QuantaPacket packet) {
 		// TODO Auto-generated method stub
-		
+		System.out.println(packet.getData());
 	}
 
 	@Override
@@ -43,12 +43,6 @@ public class SSLClientHandler implements QuantaNetListener {
 
 	@Override
 	public void handleUUIDPacket(QuantaPacket packet) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void handleBukkitPacket(QuantaPacket packet) {
 		// TODO Auto-generated method stub
 		
 	}
