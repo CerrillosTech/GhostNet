@@ -1,6 +1,6 @@
 package com.ghost.net;
 
-import com.cerrillostech.quantanet.p2p.DiscoveryClient;
+import com.cerrillostech.quantanet.p2p.old.DiscoveryClient;
 
 public class DiscoveryThread extends Thread {
 	private boolean active = false;

@@ -2,8 +2,8 @@ package com.ghost.net;
 
 import java.util.ArrayList;
 
-import com.cerrillostech.quantanet.p2p.Peer;
-import com.cerrillostech.quantanet.p2p.PeerFoundHandler;
+import com.cerrillostech.quantanet.p2p.old.Peer;
+import com.cerrillostech.quantanet.p2p.old.PeerFoundHandler;
 
 public class P2PHandler implements PeerFoundHandler {
 	public static ArrayList<String> peers = new ArrayList<String>();
