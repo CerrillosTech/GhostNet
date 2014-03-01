@@ -2,7 +2,7 @@ package com.ghost.net.client;
 
 import com.cerrillostech.quantanet.p2p.DiscoveryThreadClient;
 import com.cerrillostech.quantanet.p2p.DiscoveryThreadServer;
-public class MainClass {
+public class GhostNetClientMainClass {
 
 	public static void main(String args[]) throws NumberFormatException, Exception {
 			if(args.length!=1){
