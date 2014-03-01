@@ -1,39 +1,76 @@
 package com.ghost.net;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InterfaceAddress;
-import java.net.NetworkInterface;
-import java.util.Enumeration;
-
-import com.cerrillostech.quantanet.p2p.DiscoveryServer;
-import com.cerrillostech.quantanet.p2p.FoundPeersHandler;
-import com.cerrillostech.quantanet.p2p.Peer;
-import com.cerrillostech.quantanet.sslclient.SSLClient;
-import com.cerrillostech.quantanet.sslserver.SSLServer;
+import com.cerrillostech.quantanet.p2p.DiscoveryThreadClient;
+import com.cerrillostech.quantanet.p2p.DiscoveryThreadServer;
 public class MainClass {
-	private static SSLServer server;
-	private static SSLClient client;
-	private static DiscoveryServer P2PServer;
-	private static DiscoveryThread P2PClientThread;
-	
-	public static void main(String args[]) {
-		int P2PPort = 8888;
-		int SSLPort = 9999;
-		P2PServer = new DiscoveryServer(P2PPort, false);
-		P2PClientThread = new DiscoveryThread(P2PPort, 250, false);
-		server = new SSLServer(SSLPort);
-		server.setQuantaNetListener(new SSLServerHandler());
-		server.start();
-		P2PServer.start();
-		P2PClientThread.setActive(true);
-		while(true){
-			for(String peerAddress : P2PHandler.peers){
-				client = new SSLClient(peerAddress, SSLPort, new SSLClientHandler());
-				client.start();
-				client.sendMessage("TEST");
+
+	public static void main(String args[]) throws NumberFormatException, Exception {
+		TomP2P temp = new TomP2P();
+		temp.store("data", "1234");
+		TomP2P.example(args);
+		
+		if(args.length!=1){
+			/*
+			System.out.println("This jar requires an argument to specify if it is in server or client mode.");
+			System.out.println("Please define S or C");
+			System.exit(-1);
+			*/
+			System.out.println("Defaulting to client mode!");
+			DiscoveryThreadClient client = new DiscoveryThreadClient(8888);
+			if(client.findPeers()){
+				System.out.println(client.getPeer());
+			}
+		} else {
+			if(args[0].equalsIgnoreCase("s")){
+				Thread thread = new Thread(new DiscoveryThreadServer(8888));
+				thread.start();
+			} else if(args[0].equalsIgnoreCase("c")){
+				DiscoveryThreadClient client = new DiscoveryThreadClient(8888);
+				if(client.findPeers()){
+					System.out.println(client.getPeer());
+				}
+				
 			}
 		}
+		
+		/*
+		while(true){
+			try {
+				PeerDiscovery bpd = new PeerDiscovery(InetAddress.getByName("255.255.255.255"), 8888);
+				InetAddress[] peers = bpd.getPeers(250);
+				System.out.println("Peers: "+peers.length);
+				if(peers.length>0){
+					for(int x = 0; x < peers.length; x++){
+						System.out.println("Peer: " + peers[x]);
+					}
+				}
+				bpd.disconnect();
+				Thread.sleep(1000);
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+*/
+		
+		//P2PServer = new DiscoveryServer(P2PPort, false);
+		//P2PClientThread = new DiscoveryThread(P2PPort, 50, false);
+		//server = new SSLServer(SSLPort);
+		//server.setQuantaNetListener(new SSLServerHandler());
+		//server.start();
+		//P2PServer.start();
+		//P2PClientThread.setActive(true);
+		//while(true){
+			//for(String peerAddress : P2PHandler.peers){
+		///		client = new SSLClient(peerAddress, SSLPort, new SSLClientHandler());
+		//		client.start();
+		//		client.sendMessage("TEST");
+		//	}
+		//}
 		
 		//System.out.println(FoundPeersHandler.getFPH(5555, 5555).getSize());
 		/*
