@@ -2,6 +2,7 @@ package com.ghost.net.client;
 
 import com.cerrillostech.quantanet.p2p.DiscoveryThreadClient;
 import com.cerrillostech.quantanet.p2p.DiscoveryThreadServer;
+import com.cerrillostech.quantanet.sslclient.SSLClient;
 public class GhostNetClientMainClass {
 
 	public static void main(String args[]) throws NumberFormatException, Exception {
@@ -14,7 +15,11 @@ public class GhostNetClientMainClass {
 			System.out.println("Defaulting to client mode!");
 			DiscoveryThreadClient client = new DiscoveryThreadClient(8888);
 			if(client.findPeers()){
-				System.out.println(client.getPeer());
+				String ip = client.getPeer();
+				//System.out.println(client.getPeer());
+				SSLClient sslClient = new SSLClient(ip, 9999, new GhostNetClientListener());
+				sslClient.start();
+				sslClient.sendMessage("Hello from client!");
 			}
 		} else {
 			if(args[0].equalsIgnoreCase("s")){
@@ -23,7 +28,11 @@ public class GhostNetClientMainClass {
 			} else if(args[0].equalsIgnoreCase("c")){
 				DiscoveryThreadClient client = new DiscoveryThreadClient(8888);
 				if(client.findPeers()){
-					System.out.println(client.getPeer());
+					String ip = client.getPeer();
+					//System.out.println(client.getPeer());
+					SSLClient sslClient = new SSLClient(ip, 9999, new GhostNetClientListener());
+					sslClient.start();
+					sslClient.sendMessage("Hello from client!");
 				}
 				
 			}
